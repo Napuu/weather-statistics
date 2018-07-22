@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withProps} from 'recompose';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 class ControlsContainer extends Component {
     render() {
@@ -9,29 +10,22 @@ class ControlsContainer extends Component {
         );
     }
 }
-class Slider extends Component {
+const Slider2 = withProps({"ticks":[1,2,3,4]})(ReactBootstrapSlider);
+class Slider extends ReactBootstrapSlider{ 
     constructor(props) {
         super(props);
         this.state = {
-
+            currentValue: 0
         }
     }
-    changeValue(val) {
+    change(val) {
         console.log(val.target.value);
         console.log("value changed" + this.currentValue);
     }
-    render () {
-        return (
-            <ReactBootstrapSlider
-                ticks = {this.props.ticks}
-                ticks_labels = {this.props.ticks_labels}
-                ticks_snap_bounds = { this.props.ticks_snap_bounds}
-                slideStop={this.changeValue}
-            />
-        );
-    }
 }
+// const Slider = "";
 export {
     ControlsContainer,
-    Slider
+    Slider,
+    Slider2
 }

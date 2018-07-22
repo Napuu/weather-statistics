@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import { ControlsContainer, Slider } from "./MyControls.js";
+import { ControlsContainer, Slider, Slider2 } from "./MyControls.js";
+import {MapWithAMarker } from "./MyMapThings.js";
 import './App.css';
-import ReactBootstrapSlider from 'react-bootstrap-slider';
-const testDict = {
-    var1: "moi",
-    var2: "he"
-};
-function test(dict) {
-   return dict.var1 + dict.var2; 
-}
 class App extends Component {
   render() {
     return (
       <div className="App">
-        moi {test(testDict)}
         <ControlsContainer>
+            <Slider2/>
             <Slider 
                   ticks = {[0, 100, 200, 300, 400]}
                   ticks_labels = {["$0", "$100", "$200", "$300", "$400"]}
-                  ticks_snap_bounds = { 100 }
+                  ticks_snap_bounds = {10 }
             />
         </ControlsContainer>
+        <MapWithAMarker
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBej9fCwuETi14G6kfLYbQVo-WNahaskqI&v=3.exp"
+            loadingElement={<div style={{ height: '100%'}} />}
+            containerElement={<div style={{ height: "400px"}} /> }
+            mapElement={<div style={{height: '100%'}}/>}
+        />
       </div>
     );
   }
 }
 
 
-function MySlider(props) {
-
-}
 export default App;
