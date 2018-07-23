@@ -10,22 +10,24 @@ class ControlsContainer extends Component {
         );
     }
 }
-const Slider2 = withProps({"ticks":[1,2,3,4]})(ReactBootstrapSlider);
-class Slider extends ReactBootstrapSlider{ 
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentValue: 0
-        }
-    }
+const Slider2 = withProps({"value": 1,"ticks":[1,2,3,5]})(ReactBootstrapSlider);
+class Slider3 extends ReactBootstrapSlider {
+    
+}
+class Slider extends React.Component { 
     change(val) {
         console.log(val.target.value);
         console.log("value changed" + this.currentValue);
     }
+    render() {
+        return <ReactBootstrapSlider value={0} {...this.props} />
+    }
+
 }
 // const Slider = "";
 export {
     ControlsContainer,
     Slider,
-    Slider2
+    Slider2,
+    Slider3
 }
