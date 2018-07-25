@@ -15,6 +15,9 @@ class Slider3 extends ReactBootstrapSlider {
     
 }
 class Slider extends React.Component { 
+    componenDidMount() {
+        console.log("mounting");
+    }
     change(val) {
         console.log(val.target.value);
         console.log("value changed" + this.currentValue);

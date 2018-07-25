@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import { ControlsContainer, Slider, Slider2, Slider3 } from "./MyControls.js";
 import {MapWithAMarker } from "./MyMapThings.js";
+import {Fetch} from "./DataFetcher.js";
 import './App.css';
 
 class App extends Component {
@@ -22,10 +23,22 @@ class App extends Component {
             containerElement={<div style={{ height: "400px"}} /> }
             mapElement={<div style={{height: '100%'}}/>}
         />
+        <button onClick={fetchSounding}>
+            Fetch :-)
+          </button>
+
+        <Slider
+            isSounding = {true}
+        />
       </div>
     );
   }
 }
 
+let fetcher = new Fetch();
+function fetchSounding() {
+    console.log("fetch");
+    console.log(fetcher.fetch());
+}
 
 export default App;
