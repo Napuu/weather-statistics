@@ -3,6 +3,20 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-.slider {
-    width: 80% !important;
+/*.slider {*/
+    /*width: 80% !important;*/
+/*}*/
+.mapContainer .rc-slider-handle:before {
+    content: attr(aria-valuenow);
+    font-size: 2.75rem;
+    position: absolute;
+    top: 1.00rem;
+    transform: translateX(-50%);
+}
+
+.soundingsData {
+    padding: 3.25rem;
+}
+.mapContainer .rc-slider-mark-text {
+
 }
