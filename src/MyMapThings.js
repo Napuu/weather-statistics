@@ -13,10 +13,11 @@ import {
 class SoundingValues extends Component {
     render() {
         let index = this.props.currentSoundingIndex;
-        let soundingsData = this.props.soundingsData[0];
+        let soundingsData = this.props.soundingsData[this.props.currentSoundingPositionIndex];
         if (soundingsData === undefined) return "not ready yet";
         return (
             <div className="soundingsData" > 
+                {console.log(soundingsData)}
                 Altitude: {soundingsData[index].altitude}m, 
                 Temperature: {soundingsData[index].airTemperature} °C,
                 Wind speed: {soundingsData[index].windSpeed} m/s, 
@@ -61,22 +62,26 @@ class MapContainer extends Component {
     componentDidMount() {
         console.log("mounted");
 
-        let altitudes = {};
+        let altitudes = [];
         this.fetcher.fetchLatestSoundings().then((data) => { 
-            for (let i = 0; i < data[0].length; i++) {
-                let currentAltitude = Math.floor(data[0][i].altitude);;
-                altitudes[currentAltitude] = "";
+            for (let soundingPosIndex = 0; soundingPosIndex < data.length; soundingPosIndex++) {
+                altitudes.push({});
+                for (let i = 0; i < data[soundingPosIndex].length; i++) {
+                    let currentAltitude = Math.floor(data[soundingPosIndex][i].altitude);;
+                    altitudes[soundingPosIndex][currentAltitude] = "";
+                }
             }
 
             console.log(this.state);
             //console.log(data[this.
             this.setState({
-                ticks: altitudes,
+                allAltitudes: altitudes,
+                ticks: altitudes[this.state.currentSoundingPositionIndex],
                 markerLat: parseFloat(data[this.state.currentSoundingPositionIndex][0].latitude),
                 markerLng: parseFloat(data[this.state.currentSoundingPositionIndex][0].longitude),
                 markerVisible: true,
                 soundingsData: data,
-                max: (Math.floor(data[0][data[0].length - 1].altitude) + 500)
+                max: (Math.floor(data[this.state.currentSoundingPositionIndex][data[this.state.currentSoundingPositionIndex].length - 1].altitude) + 500)
             });
         });
 
@@ -87,9 +92,9 @@ class MapContainer extends Component {
         console.log(this.that);
         console.log(this);
         let currentSounding, currentSoundingIndex;
-        for (let i = 0; i < that.state.soundingsData[0].length; i++) {
-            if (Math.floor(that.state.soundingsData[0][i].altitude) == currentSliderValue) {
-                currentSounding = (that.state.soundingsData[0][i]);
+        for (let i = 0; i < that.state.soundingsData[that.state.currentSoundingPositionIndex].length; i++) {
+            if (Math.floor(that.state.soundingsData[that.state.currentSoundingPositionIndex][i].altitude) == currentSliderValue) {
+                currentSounding = (that.state.soundingsData[that.state.currentSoundingPositionIndex][i]);
                 currentSoundingIndex = i; 
                 break;
             }
@@ -119,7 +124,7 @@ class MapContainer extends Component {
                     
                 />
                 <Slider value={this.state.sliderValue} marks={this.state.ticks} that={this} min={this.state.min}  max={this.state.max} step={null} onChange={this.handleChange} />
-                <SoundingValues soundingsData={this.state.soundingsData} currentSoundingIndex={this.state.currentSoundingIndex}/>
+                <SoundingValues soundingsData={this.state.soundingsData} currentSoundingIndex={this.state.currentSoundingIndex} currentSoundingPositionIndex={this.state.currentSoundingPositionIndex}/>
             </div> 
         );
     }
