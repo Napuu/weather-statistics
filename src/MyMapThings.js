@@ -34,10 +34,10 @@ class SoundingValues extends Component {
 }
 const MapWithAMarker = withScriptjs(withGoogleMap(props =>
     <GoogleMap
-        defaultZoom={6}
-        defaultCenter={{ lat: 61.805230, lng: 24.988423}}
+        defaultZoom={4}
+        defaultCenter={{ lat: 64.5, lng: 26}}
     >
-        <Marker visible={props.markerVisible} position={{ lat: props.markerLat, lng: props.markerLng }}>
+        <Marker visible={props.markerVisible} position={{ lat: props.markerLatitude, lng: props.markerLongitude }}>
         </Marker>
     </GoogleMap>
 ));
@@ -93,7 +93,7 @@ class MapContainer extends Component {
         console.log(this);
         let currentSounding, currentSoundingIndex;
         for (let i = 0; i < that.state.soundingsData[that.state.currentSoundingPositionIndex].length; i++) {
-            if (Math.floor(that.state.soundingsData[that.state.currentSoundingPositionIndex][i].altitude) == currentSliderValue) {
+            if (Math.floor(that.state.soundingsData[that.state.currentSoundingPositionIndex][i].altitude) === currentSliderValue) {
                 currentSounding = (that.state.soundingsData[that.state.currentSoundingPositionIndex][i]);
                 currentSoundingIndex = i; 
                 break;

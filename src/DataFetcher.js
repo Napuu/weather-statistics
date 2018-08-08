@@ -82,11 +82,12 @@ class Fetch {
                         }
                     }
                 }
-                console.log(importantData);
+                // console.log(importantData);
 
+                let launchLocations = xml.getElementsByTagName("target:region").map(launchLocation => launchLocation.value);
 
                 //return importantData;
-                resolve(importantData);
+                resolve({soundingsData: importantData, launchLocations: launchLocations});
 
             })
             .catch((err) => {
