@@ -3,18 +3,18 @@ import {Fetch} from "./DataFetcher.js";
 import './App.css';
 import Slider from 'rc-slider';
 import {MapWithAMarker} from './MyMapThings.js';
-//import {ReactBootstrapSlider} from "react-bootstrap-slider";
+import 'rc-slider/assets/index.css';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <MyContainer/>
-      </div>
+        <div className="App">
+            <LatestFMISoundingsWidget/>
+        </div>
     );
   }
 }
 
-class MyContainer extends Component {
+class LatestFMISoundingsWidget extends Component {
     constructor(props) {
         super(props);
         this.handleLocationSelectorValueChange = this.handleLocationSelectorValueChange.bind(this);
@@ -153,7 +153,7 @@ class MyContainer extends Component {
     }
     render() {
         return(
-            <div>
+            <div className="soundingContainer" >
                 <MapWithAMarker
                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBej9fCwuETi14G6kfLYbQVo-WNahaskqI&v=3.exp"
                     markerLatitude={this.state.map.markerLatitude}
@@ -187,7 +187,6 @@ class SoundingLaunchLocationSelector extends Component {
         super(props);
         this.onChange = this.onChange.bind(this);  
     }
-
     onChange(ev) {
         this.props.onChange(ev);
     }
@@ -195,9 +194,12 @@ class SoundingLaunchLocationSelector extends Component {
         let elements = [];
         this.props.launchLocations.map((location, i) => elements.push(<option key={i} value={i}>{location}</option>));
         return(
-            <select onChange={this.onChange}>
-                {elements}
-            </select>
+            <div>
+                {"Launch location: "}
+                <select onChange={this.onChange}>
+                    {elements}
+                </select>
+            </div>
         );
     }
 
